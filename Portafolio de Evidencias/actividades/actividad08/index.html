@@ -1,214 +1,231 @@
-<!-- Estructura básica del documento HTML -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Operaciones Algebraicas</title>
+    <title>Calculadora de Ecuaciones Algebraicas - David Romero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
+    /* VARIABLES DE COLOR */
+    :root {
+        --color-main: #B4141E; /* Rojo Oscuro (Color solicitado) */
+        --color-secondary: #ffffff; /* Blanco */
+        --color-background: #2d2d2d; /* Gris Oscuro */
+        --color-body-bg: #1a1a1a; /* Negro más oscuro */
+    }
+
     /* Reset y configuración base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family:'Courier New', Courier, monospace;
-    background-color: #403f3f; /* Negro */
-    color: #ffffff; /* Blanco */
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Contenedor principal */
-.container {
-    width: 100%;
-    max-width: 600px;
-    padding: 2rem;
-}
-
-/* Título */
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: #3be3f6; /* Azul */
-    margin-bottom: 3rem;
-    outline-style: solid ;
-    border-radius: 10px;
-}
-
-/* Sección de inputs */
-.input-section {
-    margin-bottom: 2rem;
-}
-
-.field-group {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #ffffff; /* Blanco */
-    margin-bottom: 0.5rem;
-    text-decoration: underline;
-}
-
-/* Campos de texto */
-textarea {
-    width: 100%;
-    min-height: 100px;
-    padding: 1rem;
-    background-color: #2d2d2d;
-    border: 2px solid #3be3f6;
-    border-radius: 8px;
-    color: #ffffff; /* Blanco */
-    font-size: 1rem;
-    font-family: 'Courier New', monospace;
-    resize: vertical;
-    transition: border-color 0.3s ease;
-    animation: prender-apagar 1.5s infinite alternate;
-}
-
-@keyframes prender-apagar {
-      0% {
-        box-shadow: 0 0 5px #edefee, 0 0 10px #3be3f6 inset;
-        border-color: #3be3f6;
-      }
-      100% {
-        box-shadow: none;
-        border-color: #444;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-}
 
-textarea:focus {
-    outline: none;
-    border-color: #ffffff;
-}
-
-textarea::placeholder {
-    color: #888888;
-}
-
-/* Botón de calcular */
-.calculate-button {
-    width: 100%;
-    padding: 1rem;
-    background-image: linear-gradient(45deg, rgb(30, 28, 14), rgb(0, 238, 255));
-    color: #ffffff; /* Blanco */
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.calculate-button:hover {
-    filter: hue-rotate(50deg);
-    transform: translateY(-2px);
-}
-
-.calculate-button:active {
-    transform: translateY(0);
-}
-
-/* Sección de resultados */
-.result-section {
-    margin-top: 2rem;
-}
-
-.info-card {
-    background-color: #2d2d2d;
-    border: 2px solid #24dbfb; 
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    animation: prender-apagar 1.5s infinite alternate;
-}
-
-@keyframes prender-apagar {
-      0% {
-        box-shadow: 0 0 5px #edefee, 0 0 10px #3be3f6 inset;
-        border-color: #3be3f6;
-      }
-      100% {
-        box-shadow: none;
-        border-color: #444;
+    body {
+        /* Tipo de letra más profesional y moderna */
+        font-family: 'Open Sans', sans-serif; 
+        background-color: var(--color-body-bg); 
+        color: var(--color-secondary);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-}
 
-
-.info-card h3 {
-    color: #fcfcfc; /* Amarillo */
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-.result-content {
-    font-family: 'Courier New', monospace;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #ffffff; /* Blanco */
-    background-color: #1a1a1a;
-    padding: 1rem;
-    border-radius: 6px;
-    border-left: 4px solid #ffffff; /* Amarillo */
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-}
-
-footer{
-    padding: 10px;
-    border: 2px solid #24dbfb;
-    border-radius: 10px;
-    margin-top: 10px;
-    text-align: center;
-    animation: prender-apagar 1.5s infinite alternate;
-}
-
-@keyframes prender-apagar {
-      0% {
-        box-shadow: 0 0 5px #edefee, 0 0 10px #3be3f6 inset;
-        border-color: #3be3f6;
-      }
-      100% {
-        box-shadow: none;
-        border-color: #444;
-    }
-}
-
-
-/* Media queries para responsive */
-@media (max-width: 768px) {
+    /* Contenedor principal */
     .container {
-        padding: 1rem;
+        width: 100%;
+        max-width: 650px; /* Aumentado ligeramente para mejor visibilidad */
+        padding: 2rem;
     }
-    
+
+    /* Título */
     h1 {
-        font-size: 2rem;
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 600; /* Más robusto */
+        color: var(--color-main); /* Rojo */
+        margin-bottom: 3rem;
+        border: 2px solid var(--color-main);
+        border-radius: 12px;
+        padding: 10px;
+        letter-spacing: 1px;
+    }
+
+    /* Sección de inputs */
+    .input-section {
         margin-bottom: 2rem;
     }
-    
-    textarea {
-        min-height: 80px;
-        font-size: 0.9rem;
+
+    .field-group {
+        margin-bottom: 1.5rem;
     }
-}
+
+    label {
+        display: block;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-secondary);
+        margin-bottom: 0.5rem;
+        border-bottom: 2px solid var(--color-main); /* Resaltar etiqueta */
+        display: inline-block;
+        padding-bottom: 2px;
+    }
+
+    /* Campos de texto (Textareas) */
+    textarea {
+        width: 100%;
+        min-height: 120px; /* Más espacio */
+        padding: 1rem;
+        background-color: var(--color-background);
+        border: 2px solid var(--color-main); /* Borde Rojo */
+        border-radius: 10px; /* Bordes redondeados más suaves */
+        color: var(--color-secondary);
+        font-size: 1rem;
+        font-family: 'Open Sans', sans-serif; /* Consistencia en la fuente */
+        resize: vertical;
+        transition: all 0.3s ease;
+        /* Animación adaptada al nuevo color principal */
+        animation: focus-pulse 1.5s infinite alternate; 
+    }
+
+    @keyframes focus-pulse {
+        0% {
+            box-shadow: 0 0 5px var(--color-main), 0 0 10px rgba(180, 20, 30, 0.5) inset;
+            border-color: var(--color-main);
+        }
+        100% {
+            box-shadow: none;
+            border-color: #444;
+        }
+    }
+
+    textarea:focus {
+        outline: none;
+        border-color: var(--color-secondary); /* Borde blanco al enfocar */
+        box-shadow: 0 0 15px rgba(180, 20, 30, 0.8);
+    }
+
+    textarea::placeholder {
+        color: #aaaaaa;
+    }
+
+    /* Botón de calcular */
+    .calculate-button {
+        width: 100%;
+        padding: 1.1rem; /* Más grande */
+        /* Gradiente con el color principal */
+        background-image: linear-gradient(45deg, #7a0f16, var(--color-main)); 
+        color: var(--color-secondary);
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .calculate-button:hover {
+        background-image: linear-gradient(45deg, var(--color-main), #9c121b);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .calculate-button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Sección de resultados (Info Card) */
+    .result-section {
+        margin-top: 2rem;
+    }
+
+    .info-card {
+        background-color: var(--color-background);
+        border: 2px solid var(--color-main); 
+        border-radius: 15px; /* Más redondeado */
+        padding: 1.5rem;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        animation: focus-pulse 1.5s infinite alternate; /* Adaptada */
+    }
+
+    .info-card h3 {
+        color: var(--color-secondary); 
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        border-bottom: 2px solid var(--color-main);
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .result-content {
+        font-family: 'Open Sans', sans-serif; 
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--color-secondary);
+        background-color: #1a1a1a;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 5px solid var(--color-main); /* Borde izquierdo Rojo */
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        white-space: pre-wrap; /* Mantiene saltos de línea y formato */
+    }
+    
+    /* Clases para estados de resultado */
+    .result-error {
+        border-left-color: #ff3333 !important;
+        color: #ffaaaa !important;
+    }
+    .result-warning {
+        border-left-color: #ffcc00 !important;
+        color: #ffffe0 !important;
+    }
+
+
+    footer{
+        padding: 12px;
+        border: 2px solid var(--color-main);
+        border-radius: 10px;
+        margin-top: 20px;
+        text-align: center;
+        background-color: #121212;
+        font-size: 0.9rem;
+        font-weight: 300;
+        animation: focus-pulse 1.5s infinite alternate;
+    }
+
+
+    /* Media queries para responsive */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        textarea {
+            min-height: 100px;
+            font-size: 0.95rem;
+        }
+        
+        .calculate-button {
+            font-size: 1.1rem;
+            padding: 1rem;
+        }
+    }
 </style>
 </head>
 <body>
-   <!-- Estructura básica del documento HTML -->
-<div class="container">
-        <h1>Calculadora de Variables</h1>
+    <div class="container">
+        <h1>Calculadora de Variables y Ecuaciones</h1>
 
         <div class="input-section">
             <div class="field-group">
@@ -221,7 +238,7 @@ footer{
                 <textarea id="equations" placeholder="Ejemplo: feature_cost = w1 * w2 + w3"></textarea>
             </div>
 
-            <button id="calculate-btn" class="calculate-button">Calcular</button>
+            <button id="calculate-btn" class="calculate-button">Calcular Resultado</button>
         </div>
 
         <div class="result-section">
@@ -232,9 +249,9 @@ footer{
                 </div>
             </div>
         </div>
-           <footer>
-        <p>⚇ Tecnológico de Software ⚇ Fundamentos de Álgebra <br>⚇ Jorge Javier Pedroza Romero ⚇ Joaquin Uriona ⚇ Grupo: 1C</p>
-    </footer>
+        <footer>
+            <p>⚇ Tecnológico de Software ⚇ Fundamentos de Álgebra <br>⚇ Jorge Javier Pedroza Romero ⚇ **David Romero** ⚇ Grupo: 1C</p>
+        </footer>
     </div>
 <script>
     // Clase principal de la calculadora
@@ -255,12 +272,14 @@ class Calculator {
         // También permitir calcular con Ctrl+Enter en los campos
         this.variablesInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault(); // Evitar salto de línea si es posible
                 this.calculate();
             }
         });
         
         this.equationsInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault(); // Evitar salto de línea si es posible
                 this.calculate();
             }
         });
@@ -287,7 +306,7 @@ class Calculator {
                 if (assignmentMatch) {
                     const [, varName, value] = assignmentMatch;
                     try {
-                        // Intentar evaluar el valor (puede ser numérico o una expresión)
+                        // Intentar evaluar el valor
                         variables[varName.trim()] = this.evaluateExpression(value.trim(), variables);
                     } catch (error) {
                         throw new Error(`Error al evaluar la variable "${varName}": ${error.message}`);
@@ -307,31 +326,42 @@ class Calculator {
     
     // Evaluar expresiones matemáticas
     evaluateExpression(expression, variables) {
-        // Primero validar que la expresión original solo contenga caracteres seguros
-        // Permitimos: letras, números, operadores (+, -, *, /, ^), paréntesis, puntos, espacios
+        // Validación de caracteres seguros (mejorada)
         if (!/^[a-zA-Z0-9+\-*/().\s^]+$/.test(expression)) {
             throw new Error(`Expresión contiene caracteres no válidos: ${expression}`);
         }
         
-        // Convertir ^ a ** para potencias (JavaScript usa ** en lugar de ^)
+        // Convertir ^ a ** para potencias
         let processedExpression = expression.replace(/\^/g, '**');
         
         // Reemplazar variables conocidas en la expresión
-        for (const [varName, value] of Object.entries(variables)) {
+        // Asegura que las variables con nombres más largos se reemplacen primero
+        const sortedVars = Object.keys(variables).sort((a, b) => b.length - a.length);
+        
+        for (const varName of sortedVars) {
+            const value = variables[varName];
             const regex = new RegExp(`\\b${varName}\\b`, 'g');
             processedExpression = processedExpression.replace(regex, value);
         }
         
         // Verificar que no queden variables sin resolver (letras)
         if (/[a-zA-Z]/.test(processedExpression)) {
-            const undefinedVars = processedExpression.match(/[a-zA-Z]+/g);
-            throw new Error(`Variables sin definir: ${undefinedVars.join(', ')}`);
+            const undefinedVars = [...new Set(processedExpression.match(/[a-zA-Z]+/g))]; // Capturar nombres únicos
+            throw new Error(`Variables sin definir o mal escritas: ${undefinedVars.join(', ')}`);
         }
         
         try {
-            return Function(`"use strict"; return (${processedExpression})`)();
+            // Usar Function para una evaluación más segura que eval()
+            const result = Function(`"use strict"; return (${processedExpression})`)();
+            
+            // Comprobación de NaN o Infinity
+            if (isNaN(result) || !isFinite(result)) {
+                throw new Error("Resultado no es un número válido (ej. división por cero)");
+            }
+            
+            return result;
         } catch (error) {
-            throw new Error(`Error al evaluar: ${processedExpression}`);
+            throw new Error(`Error al evaluar: ${error.message}. Expresión final: ${processedExpression}`);
         }
     }
     
@@ -342,7 +372,7 @@ class Calculator {
             const equationsText = this.equationsInput.value.trim();
             
             if (!variablesText && !equationsText) {
-                this.showResult('Por favor ingresa las variables y ecuaciones', 'error');
+                this.showResult('Por favor ingresa las variables y ecuaciones para comenzar el cálculo.', 'error');
                 return;
             }
             
@@ -353,37 +383,126 @@ class Calculator {
             const equations = equationsText.split('\n').filter(line => line.trim());
             const results = [];
             
-            for (const equation of equations) {
-                const trimmedEquation = equation.trim();
-                if (!trimmedEquation) continue;
+            // Loop de hasta 10 iteraciones para resolver dependencias simples (ej: a=b+1, b=2)
+            for (let i = 0; i < 10; i++) { 
+                let changesMade = false;
+                const iterationResults = [];
                 
-                // Buscar ecuaciones como "result = expression"
-                const equationMatch = trimmedEquation.match(/^(\w+)\s*=\s*(.+)$/);
-                if (equationMatch) {
-                    const [, resultVar, expression] = equationMatch;
+                for (let j = 0; j < equations.length; j++) {
+                    const equation = equations[j];
+                    const trimmedEquation = equation.trim();
+                    if (!trimmedEquation) continue;
                     
-                    try {
-                        const result = this.evaluateExpression(expression, variables);
-                        variables[resultVar] = result;
-                        results.push(`${resultVar} = ${result}`);
-                    } catch (error) {
-                        throw new Error(`Error en ecuación "${trimmedEquation}": ${error.message}`);
+                    const equationMatch = trimmedEquation.match(/^(\w+)\s*=\s*(.+)$/);
+                    
+                    if (equationMatch) {
+                        const [, resultVar, expression] = equationMatch;
+                        
+                        // Solo intenta resolver si la variable aún no está definida
+                        if (!variables.hasOwnProperty(resultVar) || i === 0) {
+                            try {
+                                const result = this.evaluateExpression(expression, variables);
+                                
+                                // Si la variable ya estaba definida y el resultado es el mismo, no hay cambio
+                                if (variables.hasOwnProperty(resultVar) && variables[resultVar] === result) {
+                                    continue;
+                                }
+
+                                variables[resultVar] = result;
+                                iterationResults.push(`${resultVar} = ${result}`);
+                                changesMade = true;
+                                
+                            } catch (error) {
+                                // Si hay un error de variable no definida, se intentará de nuevo en la siguiente iteración
+                                if (error.message.includes('Variables sin definir')) {
+                                    continue; 
+                                }
+                                throw new Error(`Error en ecuación "${trimmedEquation}": ${error.message}`);
+                            }
+                        }
+                    } else {
+                         // Manejar expresiones directas (sin asignación) solo en la primera iteración
+                        if (i === 0) {
+                            try {
+                                const result = this.evaluateExpression(trimmedEquation, variables);
+                                iterationResults.push(`Expresión: ${trimmedEquation} = ${result}`);
+                            } catch (error) {
+                                // Las expresiones directas no se pueden resolver en iteraciones posteriores si fallan
+                                throw new Error(`Error al evaluar "${trimmedEquation}": ${error.message}`);
+                            }
+                        }
                     }
-                } else {
-                    // Si no es una asignación, evaluar como expresión directa
-                    try {
-                        const result = this.evaluateExpression(trimmedEquation, variables);
-                        results.push(`${trimmedEquation} = ${result}`);
-                    } catch (error) {
-                        throw new Error(`Error al evaluar "${trimmedEquation}": ${error.message}`);
+                }
+                
+                results.push(...iterationResults);
+                
+                // Si no hubo cambios en esta iteración, significa que todo se ha resuelto
+                if (!changesMade) break; 
+
+                // Evitar duplicados en el resultado final si hubo múltiples iteraciones
+                if (i > 0) {
+                    const uniqueResults = [];
+                    const resultNames = new Set();
+                    for(let k = results.length - 1; k >= 0; k--) {
+                        const result = results[k];
+                        const match = result.match(/^(\w+)\s*=/);
+                        if (match) {
+                            if (!resultNames.has(match[1])) {
+                                resultNames.add(match[1]);
+                                uniqueResults.unshift(result);
+                            }
+                        } else if (result.startsWith('Expresión:')) {
+                            // Añadir expresiones directas que no se repiten
+                            if (!resultNames.has(result)) {
+                                resultNames.add(result);
+                                uniqueResults.unshift(result);
+                            }
+                        }
                     }
+                    results.length = 0;
+                    results.push(...uniqueResults);
                 }
             }
             
-            if (results.length === 0) {
-                this.showResult('No se encontraron ecuaciones válidas para calcular', 'warning');
+            // Formatear el resultado final
+            const finalResults = [];
+            const processedVars = new Set();
+            
+            // Añadir las variables resueltas que son resultado de ecuaciones
+            for (const equation of equations) {
+                const match = equation.trim().match(/^(\w+)\s*=/);
+                if (match) {
+                    const varName = match[1];
+                    if (variables.hasOwnProperty(varName) && !processedVars.has(varName)) {
+                        finalResults.push(`${varName} = ${variables[varName]}`);
+                        processedVars.add(varName);
+                    }
+                }
+            }
+
+            // Añadir resultados de expresiones directas
+            for(const result of results) {
+                if (result.startsWith('Expresión:')) {
+                    finalResults.push(result.replace('Expresión: ', ''));
+                }
+            }
+
+            // Si hay variables sin resolver, mostrarlas como error
+            for (const equation of equations) {
+                 const match = equation.trim().match(/^(\w+)\s*=\s*(.+)$/);
+                 if (match) {
+                    const [, resultVar, expression] = match;
+                    if (!variables.hasOwnProperty(resultVar) && expression.includes('=')) {
+                        finalResults.push(`${resultVar} = SIN RESOLVER (dependencia circular o no definida)`);
+                        this.resultDiv.classList.add('result-warning'); // Marcar como advertencia
+                    }
+                }
+            }
+
+            if (finalResults.length === 0) {
+                this.showResult('No se encontraron ecuaciones válidas para calcular.', 'warning');
             } else {
-                this.showResult(results.join('\n'), 'success');
+                this.showResult(finalResults.join('\n'), 'success');
             }
             
         } catch (error) {
@@ -396,11 +515,14 @@ class Calculator {
         this.resultDiv.textContent = message;
         
         // Remover clases anteriores
-        this.resultDiv.classList.remove('result-success', 'result-error', 'result-warning');
+        this.resultDiv.classList.remove('result-error', 'result-warning');
         
         // Agregar clase según el tipo
         if (type !== 'success') {
             this.resultDiv.classList.add(`result-${type}`);
+        } else {
+            // Asegura el borde rojo por defecto si no es error/warning
+            this.resultDiv.style.borderLeftColor = 'var(--color-main)';
         }
     }
 }
