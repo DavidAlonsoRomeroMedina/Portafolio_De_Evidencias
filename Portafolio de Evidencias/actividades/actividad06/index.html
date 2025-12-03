@@ -1,4 +1,3 @@
-<!-- Estructura básica del documento HTML -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Expresiones Algebraicas</title>
 <style>
-    /* Variables de colores */
+    /* Variables de colores MODIFICADAS */
 :root {
-    --azul-oscuro: #1e3a8a;
-    --azul-claro: #3b82f6;
-    --oro: #f59e0b;
+    --rojo-principal: #B4141E; /* Nuevo color principal solicitado */
+    --rojo-claro: #d84315;
     --blanco: #ffffff;
     --negro: #000000;
     --gris-claro: #f8fafc;
     --gris-medio: #e2e8f0;
-    --sombra: rgba(30, 58, 138, 0.1);
+    --sombra: rgba(180, 20, 30, 0.15); /* Sombra con el nuevo color */
 }
 
 /* Reset básico */
@@ -26,17 +24,27 @@
 }
 
 body {
-    font-family:'Courier New', Courier, monospace;
+    /* Nueva fuente mÃ¡s profesional */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--negro);
-    background: linear-gradient(-45deg, rgb(37, 219, 232), #519ff8, #664ffe, #6a11cb);
+    /* Degradado de fondo modificado para que armonice con el nuevo color */
+    background: linear-gradient(-45deg, #FF6F61, var(--rojo-principal), #800000);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     transition: transform 0.3s ease;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Encabezado */
 header {
-    background-color: gray;
-    color: black;
+    background-color: var(--rojo-principal); /* Uso del nuevo color */
+    color: var(--blanco);
     text-align: center;
     padding: 2rem 1rem;
 }
@@ -49,6 +57,7 @@ header h1 {
 }
 
 h1, h2, footer:hover{
+    /* AnimaciÃ³n de brillo adaptada al nuevo color */
     animation: shine 0.8s ease-in-out alternate;
 }
 
@@ -76,22 +85,23 @@ h1, h2, footer:hover{
 
 .column {
     background-color: var(--blanco);
-    border: 2px solid black;
+    border: 2px solid var(--rojo-principal);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px var(--sombra);
 }
 
 .column:hover{
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px var(--sombra);
 }
 
 .column h2 {
-    color: black;
-    font-size: 1.5rem;
+    color: var(--rojo-principal); /* Uso del nuevo color */
+    font-size: 1.8rem;
     margin-bottom: 1rem;
     text-align: center;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid var(--gris-medio);
     padding-bottom: 0.5rem;
 }
 
@@ -102,7 +112,7 @@ h1, h2, footer:hover{
 
 .input-group label {
     display: block;
-    color: black;
+    color: var(--negro);
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
@@ -112,7 +122,7 @@ textarea {
     padding: 0.75rem;
     border: 2px solid var(--gris-medio);
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.1rem; /* Ligeramente mÃ¡s grande */
     font-family: inherit;
     resize: vertical;
     transition: border-color 0.3s ease;
@@ -120,7 +130,7 @@ textarea {
 
 textarea:focus {
     outline: none;
-    border-color: gray;
+    border-color: var(--rojo-principal); /* Borde de enfoque con el nuevo color */
 }
 
 textarea::placeholder {
@@ -131,7 +141,7 @@ textarea::placeholder {
 /* Botones */
 .convert-button {
     width: 100%;
-    background-image: linear-gradient(45deg, rgb(30, 28, 14), rgb(0, 200, 255));
+    background-color: var(--rojo-principal); /* Uso del nuevo color */
     color: var(--blanco);
     border: none;
     padding: 0.75rem 1rem;
@@ -139,32 +149,33 @@ textarea::placeholder {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 .convert-button:hover {
-    background-color: black;
+    background-color: var(--rojo-claro);
 }
 
 .convert-button:active {
     transform: translateY(1px);
 }
 
-/* Sección de carga de JSON */
+/* SecciÃ³n de carga de JSON */
 .json-loader-section {
     background-color: var(--blanco);
-    border: 2px solid black;
+    border: 2px solid var(--rojo-principal);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px var(--sombra);
 }
 
 .json-loader-section:hover{
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px var(--sombra);
 }
 
 .json-loader-section h2 {
-    color: black;
+    color: var(--rojo-principal);
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -190,7 +201,7 @@ textarea::placeholder {
 }
 
 .file-input-label {
-    background-image: linear-gradient(45deg, rgb(30, 28, 14), rgb(0, 200, 255));
+    background-color: var(--rojo-principal);
     color: var(--blanco);
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -200,11 +211,11 @@ textarea::placeholder {
 }
 
 .file-input-label:hover {
-    filter: hue-rotate(50deg);
+    background-color: var(--rojo-claro);
 }
 
 .file-name {
-    color: black;
+    color: var(--negro);
     font-size: 0.9rem;
     max-width: 200px;
     overflow: hidden;
@@ -213,7 +224,7 @@ textarea::placeholder {
 }
 
 .load-button {
-    background-color: var(--azul-claro);
+    background-color: var(--rojo-claro); /* Usando un color secundario */
     color: var(--blanco);
     border: none;
     padding: 0.5rem 1rem;
@@ -224,7 +235,7 @@ textarea::placeholder {
 }
 
 .load-button:hover:not(:disabled) {
-    background-color: var(--azul-oscuro);
+    background-color: var(--rojo-principal);
 }
 
 .load-button:disabled {
@@ -233,7 +244,7 @@ textarea::placeholder {
 }
 
 .reset-button {
-    background-image: linear-gradient(45deg, rgb(30, 28, 14), rgb(0, 200, 255));
+    background-color: var(--rojo-principal);
     color: white;
     border: 2px solid rgba(255, 255, 255, 0);
     padding: 0.5rem 1rem;
@@ -244,25 +255,26 @@ textarea::placeholder {
 }
 
 .reset-button:hover {
-    filter: hue-rotate(50deg);
+    background-color: var(--rojo-claro);
     color: var(--blanco);
 }
 
-/* Sección de información */
+/* SecciÃ³n de informaciÃ³n */
 .info-section {
     background-color: var(--blanco);
-    border: 2px solid black;
+    border: 2px solid var(--rojo-principal);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px var(--sombra);
 }
 
 .info-section:hover{
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px var(--sombra);
 }
 
 .info-section h2 {
-    color: black;
+    color: var(--rojo-principal);
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -274,8 +286,8 @@ textarea::placeholder {
 }
 
 .info-card {
-    background-color: gray;
-    border: 1px solid var(--gris-medio);
+    background-color: var(--rojo-principal); /* Uso del nuevo color */
+    border: 1px solid var(--rojo-claro);
     border-radius: 6px;
     padding: 1rem;
     text-align: center;
@@ -283,7 +295,7 @@ textarea::placeholder {
 }
 
 .info-card:hover {
-    transform: translateY(-2px);
+    transform: scale(1.05);
     box-shadow: 0 4px 8px var(--sombra);
 }
 
@@ -312,21 +324,22 @@ textarea::placeholder {
     color: white;
 }
 
-/* Sección de historial */
+/* SecciÃ³n de historial */
 .history-section {
     background-color: var(--blanco);
-    border: 2px solid black;
+    border: 2px solid var(--rojo-principal);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px var(--sombra);
 }
 
 .history-section:hover{
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px var(--sombra);
 }
 
 .history-section h2 {
-    color: black;
+    color: var(--rojo-principal);
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -348,22 +361,22 @@ textarea::placeholder {
 }
 
 .clear-button {
-    background-image: linear-gradient(45deg, rgb(30, 28, 14), rgb(0, 200, 255));
+    background-color: var(--rojo-principal);
     color: var(--blanco);
 }
 
 .clear-button:hover {
-    filter: hue-rotate(50deg);
+    background-color: var(--rojo-claro);
     color: white;
 }
 
 .export-button {
-    background-image: linear-gradient(45deg, rgb(30, 28, 14), rgb(0, 200, 255));
+    background-color: var(--rojo-principal);
     color: var(--blanco);
 }
 
 .export-button:hover {
-    filter: hue-rotate(50deg);
+    background-color: var(--rojo-claro);
     color: white;
 }
 
@@ -381,9 +394,9 @@ textarea::placeholder {
     font-style: italic;
 }
 
-/* Pie de página */
+/* Pie de pÃ¡gina */
 footer {
-    background-color: rgb(75, 75, 75);
+    background-color: #333;
     color: var(--blanco);
     text-align: center;
     padding: 1.5rem;
@@ -433,16 +446,17 @@ footer p {
     }
 }
 
+/* AnimaciÃ³n de brillo adaptada */
 @keyframes shine {
   0% {
-    text-shadow: 0 0 5px #fff, 0 0 10px #36a8e1, 0 0 20px #36a8e1;
+    text-shadow: 0 0 5px var(--blanco), 0 0 10px var(--rojo-principal), 0 0 20px var(--rojo-principal);
   }
   100% {
     text-shadow: none;
   }
 }
 
-/* Sección de resultados */
+/* SecciÃ³n de resultados */
 .result-section {
     margin-top: 1rem;
     padding-top: 1rem;
@@ -450,7 +464,7 @@ footer p {
 }
 
 .result-content h4 {
-    color: var(--azul-oscuro);
+    color: var(--rojo-principal);
     margin-bottom: 0.5rem;
     font-size: 1rem;
 }
@@ -461,20 +475,21 @@ footer p {
     border-radius: 4px;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    font-family: 'Courier New', monospace;
+    font-family: monospace; /* Mantener monoespacio para la salida algebraica */
     font-size: 1.1rem;
     min-height: 50px;
 }
 
-/* Botones de evaluación */
+/* Botones de evaluaciÃ³n */
 .evaluation-buttons {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
 }
 
+/* Colores de botones de evaluaciÃ³n actualizados */
 .satisfactory-btn {
-    background-color: #10b981;
+    background-color: #10b981; /* Verde */
     color: var(--blanco);
     border: none;
     padding: 0.5rem 0.75rem;
@@ -483,6 +498,7 @@ footer p {
     cursor: pointer;
     flex: 1;
     min-width: 120px;
+    transition: background-color 0.3s ease;
 }
 
 .satisfactory-btn:hover {
@@ -490,7 +506,7 @@ footer p {
 }
 
 .improve-btn {
-    background-color: var(--oro);
+    background-color: #f59e0b; /* Amarillo/Oro */
     color: var(--blanco);
     border: none;
     padding: 0.5rem 0.75rem;
@@ -499,6 +515,7 @@ footer p {
     cursor: pointer;
     flex: 1;
     min-width: 120px;
+    transition: background-color 0.3s ease;
 }
 
 .improve-btn:hover {
@@ -506,7 +523,7 @@ footer p {
 }
 
 .add-pattern-btn {
-    background-color: var(--azul-claro);
+    background-color: var(--rojo-principal); /* Uso del nuevo color */
     color: var(--blanco);
     border: none;
     padding: 0.5rem 0.75rem;
@@ -515,38 +532,34 @@ footer p {
     cursor: pointer;
     flex: 1;
     min-width: 120px;
+    transition: background-color 0.3s ease;
 }
 
 .add-pattern-btn:hover {
-    background-color: var(--azul-oscuro);
+    background-color: var(--rojo-claro);
 }
 </style>
 </head>
 <body>
-    <!-- Encabezado principal -->
-<header>
+    <header>
         <h1>Calculadora de Expresiones</h1>
         <p class="subtitle">Convierte entre lenguaje natural y expresiones algebraicas</p>
     </header>
 
-    <!-- Contenedor principal de 2 columnas -->
     <main class="container">
         <div class="converter-grid">
-            <!-- Columna izquierda: Lenguaje Natural -->
             <div class="column natural-column">
                 <h2>Lenguaje Natural</h2>
                 <div class="input-group">
                     <label for="natural-input">Escribe en palabras tu expresión matemática</label>
-                    <textarea 
-                        id="natural-input" 
+                    <textarea
+                        id="natural-input"
                         placeholder="Ejemplo: La suma de de a y b"
-                        rows="5"
-                    ></textarea>
+                        rows="8" ></textarea>
                 </div>
                 <button id="convert-to-algebraic-btn" class="convert-button">
                     Convertir a Expresión Algebraica
                 </button>
-                <!-- En la columna natural, después del botón convert-to-algebraic-btn -->
                 <div id="natural-result" class="result-section" style="display: none;">
                     <div class="result-content">
                         <h4>Resultado:</h4>
@@ -567,21 +580,18 @@ footer p {
             </div>
 
 
-            <!-- Columna derecha: Expresión Algebraica -->
             <div class="column algebraic-column">
                 <h2>Expresión Algebraica</h2>
                 <div class="input-group">
                     <label for="algebraic-input">Escribe tu expresión matemática</label>
-                    <textarea 
-                        id="algebraic-input" 
+                    <textarea
+                        id="algebraic-input"
                         placeholder="Ejemplo: a^2 + b^2"
-                        rows="5"
-                    ></textarea>
+                        rows="8" ></textarea>
                 </div>
                 <button id="convert-to-natural-btn" class="convert-button">
                     Convertir a Lenguaje Natural
                 </button>
-                <!-- En la columna algebraica, después del botón convert-to-natural-btn -->
                 <div id="algebraic-result" class="result-section" style="display: none;">
                     <div class="result-content">
                         <h4>Resultado:</h4>
@@ -603,7 +613,6 @@ footer p {
         </div>
 
 
-        <!-- Sección de carga de JSON -->
         <section class="json-loader-section">
             <h2>Base de Datos de Patrones</h2>
             <div class="json-loader">
@@ -623,7 +632,6 @@ footer p {
             </div>
         </section>
 
-        <!-- Tarjeta de información y métricas -->
         <section class="info-section">
             <h2>Información del Sistema</h2>
             <div class="info-cards">
@@ -677,7 +685,6 @@ footer p {
             </div>
         </section>
 
-        <!-- Sección de historial de conversiones -->
         <section class="history-section">
             <h2>Historial de Conversiones</h2>
             <div class="history-controls">
@@ -694,10 +701,9 @@ footer p {
         </section>
     </main>
 
-    <!-- Pie de página -->
     <footer>
         <p>Proyecto desarrollado para estudiantes del TSU en Desarrollo de Software y Negocios Digitales</p>
-        <p>Tecnológico de Software - Primer Cuatrimestre 2025 - Fundamentos de Álgebra - Joaquin Uriona - Jorge Javier Pedroza Romero - Grupo 1C</p>
+        <p>Tecnológico de Software - Primer Cuatrimestre 2025 - Fundamentos de Álgebra - David Romero - Jorge Javier Pedroza Romero - Grupo 1C</p>
     </footer>
 <script>
 // Variables globales
@@ -738,7 +744,7 @@ const defaultPatterns = {
             "algebraic": "{var1} ÷ {var2}",
             "category": "operaciones_basicas"
         },
-		{
+        {
             "id": 5,
             "natural": "La suma de los cuadrados de {var1} y {var2}",
             "algebraic": "{var1}^2 + {var2}^2",
@@ -747,7 +753,7 @@ const defaultPatterns = {
     ]
 };
 
-// InicializaciÃ³n cuando se carga la pÃ¡gina
+// Inicialización cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
     // Cargar patrones por defecto
     loadPatterns(defaultPatterns);
@@ -755,13 +761,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar event listeners
     setupEventListeners();
     
-    // Actualizar mÃ©tricas iniciales
+    // Actualizar métricas iniciales
     updateMetrics();
 });
 
 // Configurar todos los event listeners
 function setupEventListeners() {
-    // Botones de conversiÃ³n
+    // Botones de conversión
     document.getElementById('convert-to-algebraic-btn').addEventListener('click', () => {
         convertNaturalToAlgebraic();
     });
@@ -770,7 +776,7 @@ function setupEventListeners() {
         convertAlgebraicToNatural();
     });
     
-    // Botones de evaluaciÃ³n - Columna Natural
+    // Botones de evaluación - Columna Natural
     document.getElementById('natural-satisfactory-btn').addEventListener('click', () => {
         markAsSatisfactory('natural');
     });
@@ -783,7 +789,7 @@ function setupEventListeners() {
         showAddPatternDialog('natural');
     });
     
-    // Botones de evaluaciÃ³n - Columna Algebraica
+    // Botones de evaluación - Columna Algebraica
     document.getElementById('algebraic-satisfactory-btn').addEventListener('click', () => {
         markAsSatisfactory('algebraic');
     });
@@ -806,7 +812,7 @@ function setupEventListeners() {
     document.getElementById('export-history-btn').addEventListener('click', exportHistory);
 }
 
-// FunciÃ³n para convertir lenguaje natural a algebraico
+// Función para convertir lenguaje natural a algebraico
 function convertNaturalToAlgebraic() {
     const input = document.getElementById('natural-input').value.trim();
     if (!input) {
@@ -817,13 +823,13 @@ function convertNaturalToAlgebraic() {
     const result = processNaturalToAlgebraic(input);
     displayResult('natural', input, result);
     
-    // Actualizar estadÃ­sticas
+    // Actualizar estadísticas
     stats.totalConversions++;
     addToHistory('natural-to-algebraic', input, result);
     updateMetrics();
 }
 
-// FunciÃ³n para convertir algebraico a lenguaje natural
+// Función para convertir algebraico a lenguaje natural
 function convertAlgebraicToNatural() {
     const input = document.getElementById('algebraic-input').value.trim();
     if (!input) {
@@ -834,13 +840,13 @@ function convertAlgebraicToNatural() {
     const result = processAlgebraicToNatural(input);
     displayResult('algebraic', input, result);
     
-    // Actualizar estadÃ­sticas
+    // Actualizar estadísticas
     stats.totalConversions++;
     addToHistory('algebraic-to-natural', input, result);
     updateMetrics();
 }
 
-// Procesar conversiÃ³n de natural a algebraico
+// Procesar conversión de natural a algebraico
 function processNaturalToAlgebraic(input) {
     if (!patternsData || !patternsData.patterns) {
         return "Error: No hay patrones cargados";
@@ -859,7 +865,7 @@ function processNaturalToAlgebraic(input) {
     return "No se encontró un patrón coincidente. Considera agregar este caso a los patrones.";
 }
 
-// Procesar conversiÃ³n de algebraico a natural
+// Procesar conversión de algebraico a natural
 function processAlgebraicToNatural(input) {
     if (!patternsData || !patternsData.patterns) {
         return "Error: No hay patrones cargados";
@@ -878,10 +884,10 @@ function processAlgebraicToNatural(input) {
     return "No se encontró un patrón coincidente. Considera agregar este caso a los patrones.";
 }
 
-// FunciÃ³n para hacer coincidir patrones de lenguaje natural
+// Función para hacer coincidir patrones de lenguaje natural
 
 function matchNaturalPattern(input, pattern) {
-    // Convertir patrÃ³n a regex
+    // Convertir patrón a regex
     let regex = pattern.toLowerCase();
     const variables = {};
     let varCounter = 0;
@@ -1010,7 +1016,7 @@ function normalizeAlgebraicExpression(expr) {
         .toLowerCase();
 }
 
-// Sustituir variables en el patrÃ³n
+// Sustituir variables en el patrón
 function substituteVariables(template, variables) {
     let result = template;
     for (let [varName, value] of Object.entries(variables)) {
@@ -1037,7 +1043,7 @@ function markAsSatisfactory(column) {
     // Feedback visual
     showFeedback(`Marcado como satisfactorio`, 'success');
     
-    // Ocultar la secciÃ³n de resultado despuÃ©s de un tiempo
+    // Ocultar la sección de resultado después de un tiempo
     setTimeout(() => {
         document.getElementById(`${column}-result`).style.display = 'none';
     }, 2000);
@@ -1048,7 +1054,7 @@ function markForImprovement(column) {
     showFeedback('Marcado para mejora. Considera agregar un nuevo patrón.', 'warning');
 }
 
-// Mostrar diÃ¡logo para agregar patrÃ³n
+// Mostrar diálogo para agregar patrón
 function showAddPatternDialog(column) {
     const input = document.getElementById(`${column === 'natural' ? 'natural' : 'algebraic'}-input`).value;
     const output = document.getElementById(`${column}-output`).textContent;
@@ -1062,12 +1068,12 @@ function showAddPatternDialog(column) {
     const newAlgebraic = prompt('Expresión algebraica:', algebraicText);
     if (!newAlgebraic) return;
     
-    const category = prompt('Categoría­a (opcional):', 'personalizado') || 'personalizado';
+    const category = prompt('Categoría (opcional):', 'personalizado') || 'personalizado';
     
     addNewPattern(newNatural, newAlgebraic, category);
 }
 
-// Agregar nuevo patrÃ³n
+// Agregar nuevo patrón
 function addNewPattern(natural, algebraic, category = 'personalizado') {
     if (!patternsData) {
         patternsData = { patterns: [] };
@@ -1101,7 +1107,7 @@ function loadPatterns(data) {
     updateMetrics();
 }
 
-// Manejar selecciÃ³n de archivo
+// Manejar selección de archivo
 function handleFileSelection() {
     const fileInput = document.getElementById('json-file-input');
     const fileName = document.getElementById('file-name');
@@ -1135,175 +1141,137 @@ function loadJSONFile() {
         try {
             const jsonData = JSON.parse(e.target.result);
             
-            // Validar estructura del JSON
+            // Validar estructura básica
             if (!jsonData.patterns || !Array.isArray(jsonData.patterns)) {
-                throw new Error('El archivo JSON debe tener una propiedad "patterns" que sea un array');
+                alert('El archivo JSON no tiene la estructura de patrones esperada.');
+                return;
             }
             
             loadPatterns(jsonData);
-            showFeedback(`Archivo cargado exitosamente: ${file.name}`, 'success');
-            
+            showFeedback(`Patrones cargados desde "${file.name}"`, 'success');
         } catch (error) {
-            alert(`Error al cargar el archivo: ${error.message}`);
+            alert('Error al parsear el archivo JSON: ' + error.message);
+            console.error('Error al cargar JSON:', error);
         }
     };
     
     reader.readAsText(file);
 }
 
-// Resetear a patrones por defecto
+// Restablecer a patrones por defecto
 function resetToDefault() {
-    if (confirm('¿Estás seguro de que quieres resetear a los patrones por defecto?')) {
-        loadPatterns(defaultPatterns);
-        stats.fileSize = 0;
-        document.getElementById('file-name').textContent = 'Ningún archivo seleccionado';
-        document.getElementById('json-file-input').value = '';
-        showFeedback('Patrones reseteados a valores por defecto', 'info');
-    }
+    loadPatterns(defaultPatterns);
+    // Limpiar info de archivo
+    document.getElementById('json-file-input').value = null;
+    document.getElementById('file-name').textContent = 'Ningún archivo seleccionado';
+    document.getElementById('load-json-btn').disabled = true;
+    stats.fileSize = 0;
+    updateMetrics();
+    showFeedback('Patrones restablecidos a la configuración por defecto.', 'info');
 }
 
-// Agregar al historial
+// Añadir al historial
 function addToHistory(type, input, output) {
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     const historyItem = {
-        timestamp: new Date().toLocaleString('es-ES'),
         type: type,
         input: input,
-        output: output
+        output: output,
+        time: formattedTime
     };
-    
-    conversionHistory.unshift(historyItem); // Agregar al inicio
-    if (conversionHistory.length > 50) { // Limitar historial
-        conversionHistory.pop();
-    }
-    
-    updateHistoryDisplay();
+    conversionHistory.push(historyItem);
+    renderHistory();
 }
 
-// Actualizar visualizaciÃ³n del historial
-function updateHistoryDisplay() {
-    const historyContainer = document.getElementById('conversion-history');
+// Renderizar historial
+function renderHistory() {
+    const historyList = document.getElementById('conversion-history');
+    historyList.innerHTML = '';
     
     if (conversionHistory.length === 0) {
-        historyContainer.innerHTML = '<p class="no-history">No hay conversiones realizadas aún</p>';
+        historyList.innerHTML = '<p class="no-history">No hay conversiones realizadas aún</p>';
         return;
     }
     
-    const historyHTML = conversionHistory.map(item => `
-        <div class="history-item">
-            <div class="history-header">
-                <span class="history-type">${item.type === 'natural-to-algebraic' ? 'Natural a Algebraico' : 'Algebraico a Natural'}</span>
-                <span class="history-timestamp">${item.timestamp}</span>
-            </div>
-            <div class="history-content">
-                <div><strong>Entrada:</strong> ${item.input}</div>
-                <div><strong>Resultado:</strong> ${item.output}</div>
-            </div>
-        </div>
-    `).join('');
-    
-    historyContainer.innerHTML = historyHTML;
+    conversionHistory.slice().reverse().forEach(item => {
+        const listItem = document.createElement('div');
+        listItem.classList.add('history-item');
+        listItem.style.borderBottom = '1px dashed var(--gris-medio)';
+        listItem.style.padding = '0.5rem 0';
+        listItem.innerHTML = `
+            <p style="font-size: 0.9rem; margin-bottom: 0.25rem;">
+                <strong>${item.time}</strong> - 
+                <span style="color: var(--rojo-principal);">${item.type === 'natural-to-algebraic' ? 'N -> A' : 'A -> N'}</span>
+            </p>
+            <p style="font-size: 0.85rem; margin-left: 10px;">
+                <span style="color: #6c757d;">Entrada:</span> ${item.input}
+            </p>
+            <p style="font-size: 0.85rem; margin-left: 10px;">
+                <span style="color: var(--rojo-principal);">Salida:</span> <code style="background-color: var(--gris-claro); padding: 2px 4px; border-radius: 3px;">${item.output}</code>
+            </p>
+        `;
+        historyList.appendChild(listItem);
+    });
 }
 
 // Limpiar historial
 function clearHistory() {
-    if (confirm('¿Estás seguro de que quieres limpiar el historial?')) {
-        conversionHistory = [];
-        updateHistoryDisplay();
-        showFeedback('Historial limpiado', 'info');
-    }
+    conversionHistory = [];
+    renderHistory();
+    showFeedback('Historial de conversiones limpiado.', 'info');
 }
 
 // Exportar historial
 function exportHistory() {
     if (conversionHistory.length === 0) {
-        alert('No hay historial para exportar');
+        alert('No hay historial para exportar.');
         return;
     }
     
-    const dataStr = JSON.stringify(conversionHistory, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(dataBlob);
-    link.download = `historial_conversiones_${new Date().toISOString().split('T')[0]}.json`;
-    link.click();
-    
-    showFeedback('Historial exportado exitosamente', 'success');
+    const exportData = JSON.stringify(conversionHistory, null, 2);
+    const blob = new Blob([exportData], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'historial_conversiones.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showFeedback('Historial exportado correctamente.', 'success');
 }
 
-// Actualizar mÃ©tricas en la interfaz
+// Actualizar métricas de la interfaz
 function updateMetrics() {
     document.getElementById('total-patterns').textContent = stats.totalPatterns;
     document.getElementById('file-size').textContent = stats.fileSize > 0 ? `${stats.fileSize} KB` : '0 KB';
     document.getElementById('conversions-count').textContent = stats.totalConversions;
     
-    // Calcular tasa de satisfacciÃ³n
     const satisfactionRate = stats.totalConversions > 0 
-        ? Math.round((stats.satisfactoryConversions / stats.totalConversions) * 100)
-        : 0;
+        ? ((stats.satisfactoryConversions / stats.totalConversions) * 100).toFixed(1)
+        : '0';
     document.getElementById('satisfaction-rate').textContent = `${satisfactionRate}%`;
     
     document.getElementById('last-update').textContent = stats.lastUpdate || '--';
-    
-    // Calcular complejidad promedio
-    const avgComplexity = calculateAverageComplexity();
+
+    // Complejidad promedio (muy bÃ¡sica)
+    const totalWords = patternsData && patternsData.patterns 
+        ? patternsData.patterns.reduce((sum, p) => sum + (p.natural ? p.natural.split(/\s+/).length : 0), 0)
+        : 0;
+    const avgComplexity = stats.totalPatterns > 0 
+        ? (totalWords / stats.totalPatterns).toFixed(1)
+        : '0';
     document.getElementById('avg-complexity').textContent = avgComplexity;
 }
 
-// Calcular complejidad promedio
-function calculateAverageComplexity() {
-    if (!patternsData || !patternsData.patterns || patternsData.patterns.length === 0) {
-        return 0;
-    }
-    
-    const totalWords = patternsData.patterns.reduce((sum, pattern) => {
-        const wordCount = pattern.natural.split(' ').length;
-        return sum + wordCount;
-    }, 0);
-    
-    return Math.round(totalWords / patternsData.patterns.length);
+// Mostrar feedback (simple)
+function showFeedback(message, type) {
+    // ImplementaciÃ³n de feedback simple con alert
+    // En una aplicaciÃ³n real se usarÃ­a un toast o similar
+    console.log(`[FEEDBACK - ${type.toUpperCase()}]: ${message}`);
+    // alert(message); // Descomentar para feedback con pop-up
 }
-
-// Mostrar feedback al usuario
-function showFeedback(message, type = 'info') {
-    // Crear elemento de feedback si no existe
-    let feedbackElement = document.getElementById('feedback-message');
-    if (!feedbackElement) {
-        feedbackElement = document.createElement('div');
-        feedbackElement.id = 'feedback-message';
-        feedbackElement.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem;
-            border-radius: 4px;
-            color: white;
-            font-weight: 600;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
-        `;
-        document.body.appendChild(feedbackElement);
-    }
-    
-    // Configurar estilos segÃºn el tipo
-    const colors = {
-        'success': '#10b981',
-        'error': '#ef4444',
-        'warning': '#f59e0b',
-        'info': '#3b82f6'
-    };
-    
-    feedbackElement.style.backgroundColor = colors[type] || colors['info'];
-    feedbackElement.textContent = message;
-    feedbackElement.style.opacity = '1';
-    
-    // Ocultar despuÃ©s de 3 segundos
-    setTimeout(() => {
-        feedbackElement.style.opacity = '0';
-    }, 3000);
-}
-
-
 </script>
 </body>
 </html>
