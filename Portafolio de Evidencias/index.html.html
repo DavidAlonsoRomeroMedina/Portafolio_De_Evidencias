@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio de David Romero</title>
+
+<!-- Importamos fuente Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* ================================================= */
+    /* === ESTILOS CSS (TODO INCLUIDO)               === */
+    /* ================================================= */
+
+    /* ======= VARIABLES DE COLOR ======= */
+    :root {
+        --bg-color: #B4141E; /* Rojo solicitado */
+        --text-color: #ffffff;
+        --card-bg: rgba(0, 0, 0, 0.3); /* Tarjetas oscuras para contrastar con el rojo */
+        --card-border: rgba(255, 255, 255, 0.2);
+        --header-shadow: rgba(0,0,0,0.3);
+    }
+
+    /* CLASE PARA MODO NAVIDAD (Sobrescribe las variables) */
+    body.christmas-mode {
+        --bg-color: #f0f0f0; /* Blanco Nieve */
+        --text-color: #c01c28; /* Rojo navideño para texto */
+        --card-bg: rgba(255, 255, 255, 0.85); /* Tarjetas claras */
+        --card-border: #2d5a27; /* Borde verde pino */
+        --header-shadow: rgba(192, 28, 40, 0.5);
+    }
+
+    /* ======= RESET Y BÁSICOS ======= */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg-color);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: background 0.8s ease, color 0.5s ease;
+        position: relative; /* Para posicionar elementos absolutos */
+    }
+
+    /* ======= CABECERA ======= */
+    header {
+        width: 100%;
+        text-align: center;
+        padding: 60px 20px 40px;
+        z-index: 10;
+        text-shadow: 0 2px 4px var(--header-shadow);
+    }
+
+    header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+    
+    /* --- 2. LAYOUT GRID DE 2 COLUMNAS --- */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 25px;
+        width: 100%;
+        max-width: 1000px; /* Nuevo ancho máximo */
+        padding: 20px;
+        margin: 0 auto;
+        z-index: 10;
+    }
+
+    /* Responsivo: 1 columna en celulares */
+    @media (max-width: 768px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* --- 3. ESTILO DE TARJETAS --- */
+    .card {
+        position: relative;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 15px;
+        backdrop-filter: blur(10px); 
+        padding: 30px;
+        height: 200px; /* Rectangulares */
+        text-decoration: none;
+        color: var(--text-color); 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+        overflow: hidden;
+    }
+
+    .card h2 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .card p {
+        font-size: 0.95rem;
+        opacity: 0.8;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        background: rgba(255,255,255, 0.1);
+    }
+    
+    /* Última tarjeta que ocupa 2 columnas */
+    .grid > .card:last-child {
+        grid-column: 1 / -1; /* Abarca todo el ancho disponible */
+        height: 220px; /* Un poco más alta */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+        border: 2px solid var(--card-border);
+    }
+
+    /* Estilos de Tarjeta en Modo Navidad */
+    body.christmas-mode .card {
+        color: #2d5a27; /* Texto verde oscuro */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    body.christmas-mode .card:hover {
+        background: white;
+        box-shadow: 0 10px 30px rgba(192, 28, 40, 0.3); /* Sombra roja */
+    }
+    body.christmas-mode .grid > .card:last-child {
+        background: linear-gradient(135deg, #ffffff, #ffeaea);
+        border-color: #c01c28;
+    }
+
+
+    /* --- 4. BOTÓN NAVIDAD Y CANVAS DE FUEGOS ARTIFICIALES --- */
+    #navidad-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: white;
+        color: #B4141E;
+        border: none;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: transform 0.3s, background 0.3s;
+        z-index: 100;
+    }
+
+    #navidad-btn:hover {
+        transform: scale(1.1);
+        background: #fff0f0;
+    }
+
+    body.christmas-mode #navidad-btn {
+        background: #2d5a27; /* Verde en modo navidad */
+        color: white;
+    }
+
+    #canvas-fireworks {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Dejar pasar clics */
+        z-index: 1; 
+        display: none; /* Oculto por defecto */
+    }
+
+    /* --- 5. ANIMACIÓN DE CAÍDA (Nieve y Regalos) --- */
+    .falling-item {
+        position: fixed;
+        top: -50px;
+        pointer-events: none;
+        z-index: 99;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+
+    /* ======= FOOTER ======= */
+    footer {
+        text-align: center;
+        padding: 50px 10px;
+        opacity: 0.8;
+        font-size: 0.9rem;
+        margin-top: auto;
+        z-index: 10;
+        color: var(--text-color);
+    }
+
+</style>
+</head>
+
+<body>
+
+    <!-- Botón de Modo Navidad -->
+    <button id="navidad-btn" onclick="toggleChristmas()">🎄 Navidad</button>
+
+    <!-- Canvas para los fuegos artificiales -->
+    <canvas id="canvas-fireworks"></canvas>
+
+    <header>
+        <h1>Portafolio personal de David Romero</h1>
+        <p>Proyectos desarrollados para la materia de Fundamentos de Álgebra</p>
+    </header>
+
+    <!-- ======= CONTENEDOR DE PROYECTOS ======= -->
+    <div class="grid">
+
+        <!-- Tarjeta 1 -->
+        <a class="card" href="actividades/actividad02/index.html">
+            <h2>Visualizador de la Recta Numérica</h2>
+            <p>Representación gráfica interactiva de números reales.</p>
+        </a>
+
+        <!-- Tarjeta 2 -->
+        <a class="card" href="actividades/actividad04/index.html">
+            <h2>Conversiones de Números Complejos</h2>
+            <p>Calculadora polar a rectangular y viceversa.</p>
+        </a>
+
+        <!-- Tarjeta 3 -->
+        <a class="card" href="actividades/actividad06/index.html">
+            <h2>Calculadora de Expresiones</h2>
+            <p>Evaluación de expresiones algebraicas complejas.</p>
+        </a>
+
+        <!-- Tarjeta 4 -->
+        <a class="card" href="actividades/actividad08/index.html">
+            <h2>Calculadora de Variables</h2>
+            <p>Solución de sistemas y despeje de variables.</p>
+        </a>
+
+        <!-- Tarjeta 5 -->
+        <a class="card" href="actividades/actividad10/index.html">
+            <h2>Calculadora de Productos Notables</h2>
+            <p>Expansión de binomios y polinomios.</p>
+        </a>
+
+        <!-- Tarjeta 6 -->
+        <a class="card" href="actividades/actividad12/index.html">
+            <h2>División Sintética de Polinomios</h2>
+            <p>Método de Ruffini paso a paso.</p>
+        </a>
+
+        <!-- Tarjeta 7 (El GRANDE) -->
+        <a class="card" href="actividades/actividad14/index.html">
+            <h2>Calculadora Simbólica de Ecuaciones</h2>
+            <p>Herramienta avanzada para el despeje y solución de ecuaciones matemáticas. Este es el proyecto integrador final.</p>
+        </a>
+
+    </div>
+
+    <footer>Portafolio desarrollado por David Romero <br>Todos los derechos reservados</footer>
+
+    <script>
+        /* ================================================= */
+        /* === LÓGICA JAVASCRIPT (TODO INCLUIDO)         === */
+        /* ================================================= */
+        
+        // Variables globales 
+        let isChristmas = false;
+        let snowInterval;
+        let fireworksActive = false;
+        let canvas;
+        let ctx;
+        let particles = [];
+
+        // Función principal del botón (global)
+        function toggleChristmas() {
+            const body = document.body;
+            const btn = document.getElementById('navidad-btn');
+            
+            isChristmas = !isChristmas;
+
+            if (isChristmas) {
+                // ACTIVAR MODALIDAD
+                body.classList.add('christmas-mode');
+                btn.textContent = "❌ Apagar Navidad";
+                if (canvas) canvas.style.display = 'block';
+                startSnowAndGifts();
+                startFireworks();
+            } else {
+                // DESACTIVAR MODALIDAD
+                body.classList.remove('christmas-mode');
+                btn.textContent = "🎄 Navidad";
+                if (canvas) canvas.style.display = 'none';
+                stopSnowAndGifts();
+                stopFireworks();
+            }
+        }
+
+        // --- LÓGICA DE NIEVE Y REGALOS ---
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            
+            // Randomizar si es nieve o regalo (30% probabilidad de regalo)
+            const isGift = Math.random() > 0.7; 
+            item.textContent = isGift ? '🎁' : '❄️';
+            item.style.fontSize = Math.random() * 20 + 15 + 'px';
+            
+            // Posición horizontal aleatoria
+            item.style.left = Math.random() * 100 + 'vw';
+            
+            // Duración y retraso aleatorios de la caída
+            const duration = Math.random() * 3 + 4; // entre 4 y 7 segundos
+            item.style.animationDuration = duration + 's';
+            item.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.body.appendChild(item);
+
+            // Eliminar elemento al terminar animación
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000 + (parseFloat(item.style.animationDelay) * 1000));
+        }
+
+        function startSnowAndGifts() {
+            if (snowInterval) clearInterval(snowInterval); 
+            snowInterval = setInterval(createFallingItem, 300);
+        }
+
+        function stopSnowAndGifts() {
+            clearInterval(snowInterval);
+            document.querySelectorAll('.falling-item').forEach(e => e.remove());
+        }
+
+        // --- LÓGICA DE FUEGOS ARTIFICIALES (Canvas) ---
+
+        function resizeCanvas() {
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        }
+
+        function createParticle(x, y) {
+            const particleCount = 30;
+            const colors = ['#ff0000', '#00ff00', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 5 + 2,
+                    angle: Math.random() * Math.PI * 2,
+                    radius: Math.random() * 3 + 1,
+                    alpha: 1,
+                    decay: Math.random() * 0.02 + 0.01
+                });
+            }
+        }
+
+        function loopFireworks() {
+            if (!fireworksActive || !ctx) return;
+            
+            // Limpiar canvas con rastro (efecto trail)
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'lighter';
+
+            // Generar explosión aleatoria ocasionalmente
+            if (Math.random() < 0.03) { 
+                createParticle(Math.random() * canvas.width, Math.random() * canvas.height * 0.7);
+            }
+
+            // Actualizar partículas
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += Math.cos(p.angle) * p.speed;
+                p.y += Math.sin(p.angle) * p.speed + 1; 
+                p.alpha -= p.decay;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.fill();
+
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(loopFireworks);
+        }
+
+        function startFireworks() {
+            fireworksActive = true;
+            loopFireworks();
+        }
+
+        function stopFireworks() {
+            fireworksActive = false;
+            if (ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            particles = [];
+        }
+
+
+        // Ejecutar la lógica de inicialización SÓLO cuando la página esté completamente cargada
+        window.onload = function() {
+            // 1. Inicialización de Canvas
+            canvas = document.getElementById('canvas-fireworks');
+            if (canvas) {
+                ctx = canvas.getContext('2d');
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+            } 
+        };
+    </script>
+</body>
+</html>

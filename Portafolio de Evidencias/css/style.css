@@ -1,0 +1,140 @@
+
+/* --- 1. VARIABLES GLOBALES Y MODO NAVIDAD --- */
+:root {
+    --bg-color: #B4141E; 
+    --text-color: #ffffff;
+    --card-bg: rgba(0, 0, 0, 0.3); /* Tarjetas oscuras para contrastar con el rojo */
+    --card-border: rgba(255, 255, 255, 0.2);
+    --header-shadow: rgba(0,0,0,0.3);
+}
+
+body {
+    /* Aplicar el fondo del color solicitado y asegurar la transición */
+    background: var(--bg-color); 
+    transition: background 0.8s ease, color 0.5s ease;
+    position: relative; 
+    /* Elimina el background antiguo para usar la variable CSS */
+}
+
+/* Aplicar variables de color cuando el modo Navidad esté activo */
+body.christmas-mode {
+    --bg-color: #f0f0f0; /* Blanco Nieve */
+    --text-color: #c01c28; /* Rojo navideño para texto */
+    --card-bg: rgba(255, 255, 255, 0.85); /* Tarjetas claras */
+    --card-border: #2d5a27; /* Borde verde pino */
+    --header-shadow: rgba(192, 28, 40, 0.5);
+    color: var(--text-color);
+}
+
+/* --- 2. LAYOUT GRID DE 2 COLUMNAS --- */
+.grid {
+    display: grid;
+    /* 2 columnas en pantallas medianas/grandes */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 25px;
+    width: 100%;
+    max-width: 1000px; /* Nuevo ancho máximo */
+    padding: 20px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+/* Responsivo: 1 columna en celulares */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    header h1 { font-size: 2.5rem; }
+}
+
+
+/* --- 3. ESTILO DE TARJETAS (RECTANGULARES Y NUEVO COLOR) --- */
+.card {
+    height: 200px; /* Rectangulares */
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+}
+
+/* Última tarjeta que ocupa 2 columnas */
+.grid > .card:last-child {
+    grid-column: 1 / -1; /* Abarca todo el ancho disponible */
+    height: 220px; /* Un poco más alta */
+    background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+    border: 2px solid var(--card-border);
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Pequeño levantamiento */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    background: rgba(255,255,255, 0.1);
+    /* Desactivamos la transformación 3D anterior que puede ser compleja */
+    transform: translateY(-5px); 
+}
+
+/* Estilos de Tarjeta en Modo Navidad */
+body.christmas-mode .card {
+    color: #2d5a27; /* Texto verde oscuro */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+body.christmas-mode .card:hover {
+    background: white;
+    box-shadow: 0 10px 30px rgba(192, 28, 40, 0.3); /* Sombra roja */
+}
+body.christmas-mode .grid > .card:last-child {
+    background: linear-gradient(135deg, #ffffff, #ffeaea);
+    border-color: #c01c28;
+}
+
+/* --- 4. BOTÓN NAVIDAD Y CANVAS DE FUEGOS ARTIFICIALES --- */
+#navidad-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: white;
+    color: #B4141E;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s, background 0.3s;
+    z-index: 100;
+}
+
+#navidad-btn:hover {
+    transform: scale(1.1);
+    background: #fff0f0;
+}
+
+body.christmas-mode #navidad-btn {
+    background: #2d5a27; /* Verde en modo navidad */
+    color: white;
+}
+
+#canvas-fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 1; 
+    display: none; /* Oculto por defecto */
+}
+
+/* --- 5. ANIMACIÓN DE CAÍDA (Nieve y Regalos) --- */
+.falling-item {
+    position: fixed;
+    top: -50px;
+    pointer-events: none;
+    z-index: 99;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}

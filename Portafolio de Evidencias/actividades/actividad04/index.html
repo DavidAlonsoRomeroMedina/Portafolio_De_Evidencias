@@ -1,0 +1,707 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Calculadora de Conversiones - Números Complejos</title>
+
+<!-- Importamos fuente Poppins (la fuente del portafolio principal) -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style> 
+/* ==================== RESET BÁSICO Y VARIABLES ==================== */ 
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+} 
+
+:root {
+    --color-primary: #B4141E; /* Rojo principal de tu portafolio */
+    --color-secondary: #2C3E50; /* Gris azulado oscuro para texto */
+    --color-background: #f4f7f6; /* Fondo claro */
+    --color-input-bg: #e0e6ed; /* Fondo sutil para inputs */
+    --font-family-main: 'Poppins', sans-serif;
+}
+  
+/* ==================== ESTRUCTURA GENERAL ==================== */ 
+body { 
+    font-family: var(--font-family-main);
+    background-color: var(--color-primary); /* Fondo rojo sólido */
+    padding: 40px 20px; 
+    line-height: 1.6; 
+    color: var(--color-secondary);
+} 
+  
+.container { 
+    max-width: 850px; /* Un poco más ancho */
+    margin: 0 auto; 
+    background: #ffffff; 
+    border-radius: 12px; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    padding: 40px; /* Más padding para hacerlo más grande */
+    font-weight: 400;
+}
+
+  
+/* ==================== ENCABEZADOS ==================== */ 
+h1 { 
+    text-align: center; 
+    color: var(--color-primary); 
+    margin-bottom: 35px; 
+    font-weight: 700; 
+    font-size: 2.5em;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+h1:hover {
+    color: var(--color-secondary);
+    /* Mantener animación original de brillo si es posible, ajustada al rojo */
+    animation: shine-red 0.8s ease-in-out alternate;
+}
+
+@keyframes shine-red {
+    0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+    }
+    100% {
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+}
+  
+h2 {
+    color: var(--color-secondary); 
+    margin-bottom: 20px; 
+    font-size: 1.5em; 
+    font-weight: 600; 
+} 
+
+/* ==================== INSTRUCCIONES ==================== */ 
+.instructions { 
+    background-color: var(--color-input-bg); /* Fondo más suave */
+    padding: 20px; 
+    border-radius: 8px; 
+    margin-bottom: 30px; 
+    font-size: 1em; 
+    color: var(--color-secondary);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} 
+  
+.instructions ul { 
+    margin-left: 20px; 
+    margin-top: 10px; 
+} 
+  
+.instructions li { 
+    margin-bottom: 8px; 
+} 
+  
+/* ==================== SECCIONES DE FORMULARIO ==================== */ 
+.form-section { 
+    margin-bottom: 30px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 30px; /* Aumentado para rectángulos más grandes */
+    background: #fdfdfd; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+} 
+
+.form-section:hover {
+    transform: translateY(-5px); /* Movimiento más sutil */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+  
+.input-group { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 20px; /* Más espacio entre grupos de inputs */
+    font-size: 1.1em;
+} 
+  
+.input-group:last-child { 
+    margin-bottom: 0; 
+} 
+  
+/* ==================== ETIQUETAS Y OPERADORES ==================== */ 
+label { 
+    font-weight: 600; 
+    color: var(--color-secondary); 
+    font-size: 1em; 
+} 
+  
+.operator { 
+    font-size: 1.2em; 
+    color: var(--color-secondary); 
+    font-weight: 500; 
+}
+
+/* ==================== CAMPOS DE ENTRADA ==================== */ 
+input[type="text"] { 
+    width: 120px; /* Más ancho */
+    padding: 12px 15px; /* Más padding para ser más alto */
+    border: 2px solid var(--color-primary); 
+    border-radius: 6px; 
+    font-size: 1.1em; 
+    text-align: center; 
+    font-family: var(--font-family-main);
+    color: var(--color-secondary);
+    background-color: var(--color-input-bg);
+} 
+  
+input[type="text"]:focus { 
+    outline: none; 
+    border-color: var(--color-secondary); 
+    box-shadow: 0 0 0 3px rgba(180, 20, 30, 0.3); /* Sombra suave con color primario */
+} 
+  
+input[readonly] { 
+    background-color: #f0f0f0 !important; 
+    cursor: not-allowed; 
+    opacity: 0.7;
+    border-color: #aaa !important;
+} 
+  
+/* ==================== RESULTADOS ==================== */ 
+.result { 
+    background-color: #fff8f8; /* Fondo muy claro, casi blanco con toque rojo */
+    padding: 20px; /* Aumentado para mayor visibilidad */
+    border-radius: 6px; 
+    border-left: 6px solid var(--color-primary); /* Borde rojo destacado */
+    font-family: var(--font-family-main); 
+    font-size: 1.2em; 
+    color: var(--color-primary); 
+    min-height: 60px; /* Altura mínima */
+    display: flex; 
+    align-items: center; 
+    font-weight: 600;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    white-space: pre-wrap; /* Respeta saltos de línea y wrapping */
+} 
+
+#cartesian-result, #polar-result, #exponential-result {
+    /* No usar el color gris anterior, usar el fondo claro y el borde rojo */
+    background-color: #fff8f8;
+}
+
+/* ==================== BOTÓN LIMPIAR ==================== */ 
+.clear-btn { 
+    background-color: var(--color-primary);
+    color: white; 
+    border: none; 
+    padding: 12px 25px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    margin-top: 30px; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
+    font-weight: 600; 
+    box-shadow: 0 4px 10px rgba(180, 20, 30, 0.4);
+} 
+  
+.clear-btn:hover { 
+    background-color: #c01c28; /* Tono de rojo un poco más oscuro */
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 15px rgba(180, 20, 30, 0.6);
+}
+
+.obligatorio {
+    text-align: center;
+    font-size: 1em;
+    font-family: var(--font-family-main);
+    color: var(--color-secondary);
+    margin-top: 20px;
+}
+
+footer {
+    padding: 20px 0 10px;
+    border-top: 1px solid #eee;
+    margin-top: 30px;
+}
+
+footer:hover {
+    animation: none; /* Desactivamos el shine del footer para esta actividad */
+}
+
+</style> 
+</head> 
+<body> 
+<div class="container"> 
+<h1>Calculadora de Conversiones de Números Complejos</h1>
+<div class="instructions"> 
+<strong>Instrucciones:</strong> 
+<ul> 
+<li>Ingresa un número complejo en cualquiera de las tres formas</li> 
+<li>Las otras formas se calcularán automáticamente</li> 
+<li>Los ángulos se expresan en radianes y en múltiplos de pi cuando es posible</li> 
+<li>Para ángulos puedes usar: pi, pi/2, pi/4, pi/3, pi/6, 2*pi, etc.</li> 
+<li>Para raíces cuadradas puedes usar: sqrt(2), sqrt(3), sqrt(5), etc.</li> 
+<li>Usa números decimales (ejemplo: 1.5, -2.7, 0.5)</li> 
+</ul> 
+</div>
+<!-- Forma Cartesiana --> 
+<div class="form-section"> 
+    <h2>Forma Cartesiana: a + bi</h2> 
+    <div class="input-group"> 
+        <label>z =</label> 
+        <input type="text" id="real" placeholder="a (ej: sqrt(2))"> 
+        <span class="operator">+</span> 
+        <input type="text" id="imag" placeholder="b (ej: sqrt(3))"> 
+        <span class="operator">i</span> 
+    </div> 
+    <div class="result" id="cartesian-result">Ingresa los valores arriba</div> 
+</div>
+
+<!-- Forma Polar --> 
+<div class="form-section"> 
+<h2>Forma Polar: r(cos θ + i sin θ)</h2> 
+<div class="input-group"> 
+<label>z =</label> 
+<input type="text" id="modulus" placeholder="r (ej: sqrt(2))"> 
+<span class="operator">(cos</span> 
+<input type="text" id="angle" placeholder="θ (ej: pi/2)"> 
+<span class="operator">+ i sin</span> 
+<input type="text" id="angle2" placeholder="θ" readonly> 
+<span class="operator">)</span> 
+</div> 
+<div class="result" id="polar-result">Ingresa los valores arriba</div> 
+</div> 
+
+<!-- Forma Exponencial --> 
+<div class="form-section"> 
+<h2>Forma Exponencial: re^(iθ)</h2> 
+<div class="input-group"> 
+<label>z =</label> 
+<input type="text" id="exp-modulus" placeholder="r (ej: sqrt(5))"> 
+<span class="operator">e^(i*</span> 
+<input type="text" id="exp-angle" placeholder="θ (ej: pi/4)"> 
+<span class="operator">)</span> 
+</div> 
+<div class="result" id="exponential-result">Ingresa los valores arriba</div> 
+</div> 
+
+<button class="clear-btn" onclick="clearAll()"> Limpiar Todo</button> 
+
+<footer>
+    <h2 class="obligatorio">Tecnológico de Software • Fundamentos de Álgebra • Jorge Javier Pedroza Romero <br> • Grupo - 1C • David Romero</h2>
+</footer>
+
+</div> 
+<script>
+/**
+ * CALCULADORA DE CONVERSIONES DE NÚMEROS COMPLEJOS
+ * La funcionalidad matemática ha sido preservada del código original.
+ */
+
+// ============================================================================
+// VARIABLES GLOBALES
+// ============================================================================
+
+let isUpdating = false; // Previene bucles infinitos durante actualizaciones
+
+// ============================================================================
+// FUNCIONES DE PARSEO
+// ============================================================================
+
+/**
+ * Convierte una cadena de texto a número, soportando expresiones matemáticas
+ * @param {string|number} input - Entrada del usuario
+ * @returns {number} - Resultado numérico
+ */
+function parseNumber(input) {
+    // Manejar casos vacíos o nulos
+    if (!input && input !== 0) return 0;
+    
+    const inputStr = input.toString().trim();
+    if (!inputStr) return 0;
+    
+    // Preparar expresión reemplazando funciones matemáticas
+    let expression = inputStr
+        .replace(/sqrt\s*\(/gi, 'Math.sqrt(')    // sqrt(2) → Math.sqrt(2)
+        .replace(/pi\b/gi, 'Math.PI');           // pi → Math.PI
+    
+    try {
+        // Evaluar expresión de forma segura
+        const result = Function('"use strict"; return (' + expression + ')')();
+        
+        // Verificar que el resultado sea válido
+        if (isNaN(result) || !isFinite(result)) {
+            return 0;
+        }
+        
+        return result;
+    } catch (error) {
+        // En caso de error, retornar 0
+        return 0;
+    }
+}
+
+/**
+ * Convierte una cadena de texto a ángulo en radianes
+ * @param {string|number} input - Entrada del usuario
+ * @returns {number} - Ángulo en radianes
+ */
+function parseAngle(input) {
+    return parseNumber(input); 
+}
+
+// ============================================================================
+// FUNCIONES DE FORMATO Y VISUALIZACIÓN
+// ============================================================================
+
+/**
+ * Convierte un ángulo en radianes a su representación en múltiplos de pi
+ * @param {number} angle - Ángulo en radianes
+ * @returns {string} - Representación en formato pi
+ */
+function angleToPI(angle) {
+    if (Math.abs(angle) < 1e-8) return "0";
+    
+    // Simplificar el ángulo al rango (-π, π]
+    angle = normalizeAngle(angle);
+
+    // Múltiplos comunes de pi para mejor legibilidad
+    const piMultiples = [
+        { value: Math.PI, text: "pi" },
+        { value: Math.PI/2, text: "pi/2" },
+        { value: Math.PI/3, text: "pi/3" },
+        { value: Math.PI/4, text: "pi/4" },
+        { value: Math.PI/6, text: "pi/6" },
+        { value: 2*Math.PI/3, text: "2*pi/3" },
+        { value: 3*Math.PI/4, text: "3*pi/4" },
+        { value: 5*Math.PI/6, text: "5*pi/6" },
+        { value: -Math.PI/2, text: "-pi/2" },
+        { value: -Math.PI/3, text: "-pi/3" },
+        { value: -Math.PI/4, text: "-pi/4" },
+        { value: -Math.PI/6, text: "-pi/6" },
+        { value: -2*Math.PI/3, text: "-2*pi/3" },
+        { value: -3*Math.PI/4, text: "-3*pi/4" },
+        { value: -5*Math.PI/6, text: "-5*pi/6" }
+    ];
+
+    // Buscar coincidencia exacta
+    for (let pm of piMultiples) {
+        if (Math.abs(angle - pm.value) < 1e-8) {
+            return pm.text;
+        }
+    }
+
+    // Intentar expresar como fracción de pi
+    const ratio = angle / Math.PI;
+    
+    // Múltiplo entero de pi
+    if (Math.abs(ratio - Math.round(ratio)) < 1e-8) {
+        const intRatio = Math.round(ratio);
+        if (intRatio === 1) return "pi";
+        if (intRatio === -1) return "-pi";
+        if (intRatio === 0) return "0";
+        return intRatio + "*pi";
+    }
+
+    // Fracciones simples de pi
+    const denominators = [2, 3, 4, 6, 8, 12];
+    for (let den of denominators) {
+        const num = ratio * den;
+        if (Math.abs(num - Math.round(num)) < 1e-8) {
+            const intNum = Math.round(num);
+            // Asegurarse de que la fracción esté simplificada
+            if (intNum === 0) return "0";
+            if (intNum === 1) return "pi/" + den;
+            if (intNum === -1) return "-pi/" + den;
+            
+            // Simplificación: si intNum y den son divisibles
+            let gcd = (a, b) => (b ? gcd(b, a % b) : a);
+            const commonDivisor = gcd(Math.abs(intNum), den);
+            
+            const simplifiedNum = intNum / commonDivisor;
+            const simplifiedDen = den / commonDivisor;
+
+            if (simplifiedDen === 1) {
+                 return simplifiedNum === 1 ? "pi" : simplifiedNum === -1 ? "-pi" : simplifiedNum + "*pi";
+            }
+            
+            return simplifiedNum + "*pi/" + simplifiedDen;
+        }
+    }
+
+    // Si no se puede expresar como múltiplo de pi, usar decimal
+    return angle.toFixed(6);
+}
+
+/**
+ * Formatea un número mostrando fracciones y raíces cuando sea posible
+ * @param {number} num - Número a formatear
+ * @returns {string} - Representación formateada
+ */
+function formatNumber(num) {
+    if (Math.abs(num) < 1e-10) return "0";
+    
+    // Raíces cuadradas comunes
+    const sqrtValues = [
+        { value: Math.sqrt(2), text: "√2" },
+        { value: Math.sqrt(3), text: "√3" },
+        { value: Math.sqrt(5), text: "√5" },
+        { value: Math.sqrt(2)/2, text: "√2/2" },
+        { value: Math.sqrt(3)/2, text: "√3/2" },
+        { value: -Math.sqrt(2), text: "-√2" },
+        { value: -Math.sqrt(3), text: "-√3" },
+        { value: -Math.sqrt(2)/2, text: "-√2/2" },
+        { value: -Math.sqrt(3)/2, text: "-√3/2" }
+    ];
+
+    // Verificar raíces
+    for (let sv of sqrtValues) {
+        if (Math.abs(num - sv.value) < 1e-8) {
+            return sv.text;
+        }
+    }
+
+    // Fracciones comunes
+    const fractions = [
+        { value: 1/2, text: "1/2" },
+        { value: 1/3, text: "1/3" },
+        { value: 2/3, text: "2/3" },
+        { value: 1/4, text: "1/4" },
+        { value: 3/4, text: "3/4" },
+        { value: -1/2, text: "-1/2" },
+        { value: -1/3, text: "-1/3" },
+        { value: -2/3, text: "-2/3" },
+        { value: -1/4, text: "-1/4" },
+        { value: -3/4, text: "-3/4" }
+    ];
+
+    // Verificar fracciones
+    for (let frac of fractions) {
+        if (Math.abs(num - frac.value) < 1e-8) {
+            return frac.text;
+        }
+    }
+
+    // Enteros
+    if (Math.abs(num - Math.round(num)) < 1e-8) {
+        return Math.round(num).toString();
+    }
+
+    // Decimal con precisión limitada
+    return parseFloat(num.toFixed(6)).toString();
+}
+
+// ============================================================================
+// FUNCIONES MATEMÁTICAS AUXILIARES
+// ============================================================================
+
+/**
+ * Normaliza un ángulo al rango (-π, π]
+ * @param {number} angle - Ángulo en radianes
+ * @returns {number} - Ángulo normalizado
+ */
+function normalizeAngle(angle) {
+    // Usar el operador % para manejar la mayoría de los casos
+    let normalized = angle % (2 * Math.PI);
+    // Ajustar si el resultado está fuera de (-π, π]
+    if (normalized > Math.PI) {
+        normalized -= 2 * Math.PI;
+    } else if (normalized <= -Math.PI) {
+        normalized += 2 * Math.PI;
+    }
+    return normalized;
+}
+
+// ============================================================================
+// FUNCIONES DE ACTUALIZACIÓN
+// ============================================================================
+
+/**
+ * Actualiza todas las formas cuando se modifica la forma cartesiana
+ */
+function updateFromCartesian() {
+    if (isUpdating) return;
+    isUpdating = true;
+
+    // Obtener valores de los campos
+    const real = parseNumber(document.getElementById('real').value);
+    const imag = parseNumber(document.getElementById('imag').value);
+
+    // Calcular módulo y argumento
+    const modulus = Math.sqrt(real * real + imag * imag);
+    let angle = Math.atan2(imag, real);
+    angle = normalizeAngle(angle);
+
+    // Actualizar campos de polar/exponencial
+    const modulusFormatted = formatNumber(modulus);
+    const angleFormatted = angleToPI(angle);
+    
+    document.getElementById('modulus').value = modulusFormatted;
+    document.getElementById('angle').value = angleFormatted;
+    document.getElementById('angle2').value = angleFormatted; // Sincronizar campo
+    document.getElementById('exp-modulus').value = modulusFormatted;
+    document.getElementById('exp-angle').value = angleFormatted;
+
+    // Actualizar resultados mostrados
+    updateResults(real, imag, modulus, angle);
+
+    isUpdating = false;
+}
+
+/**
+ * Actualiza todas las formas cuando se modifica la forma polar
+ */
+function updateFromPolar() {
+    if (isUpdating) return;
+    isUpdating = true;
+
+    // Obtener valores de los campos
+    const modulus = parseNumber(document.getElementById('modulus').value);
+    const angle = parseAngle(document.getElementById('angle').value);
+    const normalizedAngle = normalizeAngle(angle);
+
+    // Sincronizar segundo campo de ángulo
+    const angleFormatted = angleToPI(normalizedAngle);
+    document.getElementById('angle2').value = angleFormatted;
+
+    // Calcular coordenadas cartesianas
+    const real = modulus * Math.cos(normalizedAngle);
+    const imag = modulus * Math.sin(normalizedAngle);
+
+    // Actualizar campos de cartesiana/exponencial
+    document.getElementById('real').value = formatNumber(real);
+    document.getElementById('imag').value = formatNumber(imag);
+    document.getElementById('exp-modulus').value = formatNumber(modulus);
+    document.getElementById('exp-angle').value = angleFormatted;
+
+    // Actualizar resultados mostrados
+    updateResults(real, imag, modulus, normalizedAngle);
+
+    isUpdating = false;
+}
+
+/**
+ * Actualiza todas las formas cuando se modifica la forma exponencial
+ */
+function updateFromExponential() {
+    if (isUpdating) return;
+    isUpdating = true;
+
+    // Obtener valores de los campos
+    const modulus = parseNumber(document.getElementById('exp-modulus').value);
+    const angle = parseAngle(document.getElementById('exp-angle').value);
+    const normalizedAngle = normalizeAngle(angle);
+
+    // Calcular coordenadas cartesianas
+    const real = modulus * Math.cos(normalizedAngle);
+    const imag = modulus * Math.sin(normalizedAngle);
+
+    // Actualizar campos de cartesiana/polar
+    const angleFormatted = angleToPI(normalizedAngle);
+    document.getElementById('real').value = formatNumber(real);
+    document.getElementById('imag').value = formatNumber(imag);
+    document.getElementById('modulus').value = formatNumber(modulus);
+    document.getElementById('angle').value = angleFormatted;
+    document.getElementById('angle2').value = angleFormatted;
+
+    // Actualizar resultados mostrados
+    updateResults(real, imag, modulus, normalizedAngle);
+
+    isUpdating = false;
+}
+
+/**
+ * Actualiza los resultados mostrados en todas las secciones
+ */
+function updateResults(real, imag, modulus, angle) {
+    // Si todos los valores son cero, mostrar mensaje inicial
+    if (modulus < 1e-8) {
+        const defaultText = 'Ingresa los valores arriba';
+        document.getElementById('cartesian-result').textContent = defaultText;
+        document.getElementById('polar-result').textContent = defaultText;
+        document.getElementById('exponential-result').textContent = defaultText;
+        return;
+    }
+
+    const angleText = angleToPI(angle);
+    const modulusText = formatNumber(modulus);
+
+    // Resultado cartesiano
+    let cartesianText = "";
+    const realText = formatNumber(real);
+    const imagText = formatNumber(imag);
+    
+    if (real !== 0) {
+        cartesianText += realText;
+    }
+    
+    if (imag !== 0) {
+        const sign = imag > 0 ? " + " : " - ";
+        const absImagText = formatNumber(Math.abs(imag));
+        
+        if (real === 0 && imag < 0) {
+            cartesianText += "-"; // Inicia con signo menos si la parte real es cero
+        } else if (real !== 0) {
+            cartesianText += sign;
+        }
+
+        if (Math.abs(imag) === 1) {
+            cartesianText += "i";
+        } else {
+            cartesianText += absImagText + "i";
+        }
+    }
+    if (cartesianText === "") cartesianText = "0";
+
+    document.getElementById('cartesian-result').textContent = "z = " + cartesianText;
+
+    // Resultado polar
+    let polarText = `${modulusText}(cos(${angleText}) + i sin(${angleText}))`;
+    document.getElementById('polar-result').textContent = "z = " + polarText;
+
+    // Resultado exponencial
+    let expText = `${modulusText}e^(i${angleText})`;
+    document.getElementById('exponential-result').textContent = "z = " + expText;
+}
+
+// ============================================================================
+// FUNCIONES AUXILIARES
+// ============================================================================
+
+/**
+ * Limpia todos los campos de entrada y resultados
+ */
+function clearAll() {
+    // Limpiar todos los campos de entrada
+    const inputs = document.querySelectorAll('input[type="text"]');
+    inputs.forEach(input => input.value = '');
+    
+    // Resetear resultados
+    const defaultText = 'Ingresa los valores arriba';
+    document.getElementById('cartesian-result').textContent = defaultText;
+    document.getElementById('polar-result').textContent = defaultText;
+    document.getElementById('exponential-result').textContent = defaultText;
+}
+
+
+/**
+ * Configura los event listeners cuando el DOM está listo
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    // Event listeners para forma cartesiana
+    document.getElementById('real').addEventListener('input', updateFromCartesian);
+    document.getElementById('imag').addEventListener('input', updateFromCartesian);
+
+    // Event listeners para forma polar
+    document.getElementById('modulus').addEventListener('input', updateFromPolar);
+    document.getElementById('angle').addEventListener('input', function() {
+        document.getElementById('angle2').value = this.value;
+        updateFromPolar();
+    });
+
+    // Event listeners para forma exponencial
+    document.getElementById('exp-modulus').addEventListener('input', updateFromExponential);
+    document.getElementById('exp-angle').addEventListener('input', updateFromExponential);
+});
+
+</script>
+</body> 
+</html>
